@@ -64,5 +64,5 @@ Execute in the console:<br />
 
 
 The other is using QUnit in the public folder to run a simple test on the
-custom jQuery component. This will run in a browser navigate to:
+custom jQuery component. This will run in a browser navigate to:<br />
 public/unittests/testrunner.html
