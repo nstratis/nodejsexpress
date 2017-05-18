@@ -28,10 +28,10 @@ structuring the application in a typical MVC style architecture however there
 are no real "models".
 
 # Config
-The oAuth Configuration details are stored in the private/config/config.js file.
+The oAuth Configuration details are stored in the config/config.js file.
 
 # Controllers
-There are 2 view rendering controller within the private/controllers folder allowing
+There are 2 view rendering controller within the controllers folder allowing
 the index and the userdetails pages to be rendered.
 
 # Views
