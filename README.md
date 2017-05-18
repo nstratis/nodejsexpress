@@ -8,13 +8,16 @@ communicating with a 3rd Party API
 
 The folder structure is as follows:
 
-/private - This is the main application architecture
-/public - This is the public web folder
+/auth - The oAuth passport folder containing the simple passport configuration
+/config - Simple config file with oAuth credentials
+/controllers - 2 Controllers for the Index and User Details pages
+/public - The public directory with all public files
+/views - The handlebars view files
 
 # How to initialize
 
-1. node install
-2. cd private
+1. CD to download directory
+2. node install
 3. node server.js
 4. Run from http://localhost:3000
 
