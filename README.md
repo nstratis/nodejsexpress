@@ -48,6 +48,12 @@ Did not see the point of cluttering with a framework such as bootstrap. The SASS
 and responsive nature has been custom written.
 public/sass
 
+The SASS would be compiled using assuming SASS has been installed on your system:
+sass public/sass/def_app.scss public/css/app-default.css
+
+If using a SASS node_module this would need to be added to the package list.
+
+
 # Unit Testing
 
 Two unit testing examples have been included, one for the server using "mocha"

@@ -1,7 +1,7 @@
 /*
  * This is a sample SASS file demonstrating usage and the compilation
  * of SASS into CSS.
- * sass src/js/nodejs/microservices/public/sass/def_app.scss src/js/nodejs/microservices/public/css/app-default.css
+ * sass public/sass/def_app.scss public/css/app-default.css
  */
 /*
  * DEFAULT COLOURS, SIZES AND PATHS
