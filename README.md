@@ -45,10 +45,10 @@ of demonstration simple fades in the userdetails row groups with a delay.
 # Responsive Template
 
 Did not see the point of cluttering with a framework such as bootstrap. The SASS
-and responsive nature has been custom written.
+and responsive nature has been custom written.<br />
 public/sass
 
-The SASS would be compiled using assuming SASS has been installed on your system:
+The SASS would be compiled using assuming SASS has been installed on your system:<br />
 sass public/sass/def_app.scss public/css/app-default.css
 
 If using a SASS node_module this would need to be added to the package list.
@@ -59,7 +59,7 @@ If using a SASS node_module this would need to be added to the package list.
 Two unit testing examples have been included, one for the server using "mocha"
 to test the node and express framework, only a rudimentary example.
 
-Execute in the console
+Execute in the console:<br />
 ./node_modules/.bin/mocha -R spec testrunner.js
 
 
