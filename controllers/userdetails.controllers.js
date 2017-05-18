@@ -20,7 +20,8 @@ exports.userdetails = function(req, res){
     var opts = {
       url: 'https://staging-auth.wallstreetdocs.com/oauth/userinfo',
       method: "GET",
-      auth: { 'bearer':tData.access_token }
+      auth: { 'bearer':tData.access_token },
+      headers:{'Cache-Control':'no-cache'}
     };
     // Execute the request to retieve the user information
     request(opts, function(err, usrRes){
@@ -68,7 +69,8 @@ exports.userdetails = function(req, res){
         client_id:config.clientID,
         client_secret:config.clientSecret,
         redirect_uri:config.callbackURL
-      }
+      },
+      headers:{'Cache-Control':'no-cache'}
     };
     // Execute the curl request to retrieve the token
     request(options,
