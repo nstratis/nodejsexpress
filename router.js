@@ -16,4 +16,8 @@ module.exports = function(authApp){
   authApp.get('/', indexCon.index);
   // Set the route to the userdetails page
   authApp.get('/userdetails', userCon.userdetails);
+
+  authApp.use('/invalid', function (req, res, next) {
+    res.render('invalid');
+  });
 };

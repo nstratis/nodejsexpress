@@ -24,27 +24,32 @@ exports.userdetails = function(req, res){
     };
     // Execute the request to retieve the user information
     request(opts, function(err, usrRes){
-      // Determine if the request was authorized
-      if(usrRes.body === 'Unauthorized'){
-
+      if(usrRes !== undefined && usrRes.body !== undefined){
+        // Determine if the request was authorized
+        if(usrRes.body === 'Unauthorized'){
+          // Redirect to the login page
+          res.redirect('/');
+        } else {
+          // Parse the response body as JSON
+          var uData = JSON.parse(usrRes.body);
+          // Set the page Info object
+          res.pageInfo = {};
+          // Set the default page title and description
+          res.pageInfo.title = 'Your Details';
+          res.pageInfo.desc = 'The profile details currently stored on the Wall Street Site are below.';
+          // Set the custom user value
+          res.pageInfo.user_type = uData.user_type;
+          res.pageInfo.organisation_name = uData.organisation_name;
+          res.pageInfo.display_name = uData.display_name;
+          res.pageInfo.given_name = uData.name.given_name;
+          res.pageInfo.family_name = uData.name.family_name;
+          res.pageInfo.created_at = uData.created_at;
+          res.pageInfo.updated_at = uData.updated_at;
+          // Render the user details
+          res.render('userdetails', res.pageInfo);
+        }
       } else {
-        // Parse the response body as JSON
-        var uData = JSON.parse(usrRes.body);
-        // Set the page Info object
-        res.pageInfo = {};
-        // Set the default page title and description
-        res.pageInfo.title = 'Your Details';
-        res.pageInfo.desc = 'The profile details current stored on the Wall Street Site are below.';
-        // Set the custom user value
-        res.pageInfo.user_type = uData.user_type;
-        res.pageInfo.organisation_name = uData.organisation_name;
-        res.pageInfo.display_name = uData.display_name;
-        res.pageInfo.given_name = uData.name.given_name;
-        res.pageInfo.family_name = uData.name.family_name;
-        res.pageInfo.created_at = uData.created_at;
-        res.pageInfo.updated_at = uData.updated_at;
-        // Render the user details
-        res.render('userdetails', res.pageInfo);
+        res.redirect('/');
       }
     });
   }
@@ -53,11 +58,12 @@ exports.userdetails = function(req, res){
   // Determine if the user has already logged in
   if(req.query.code !== undefined){
     // Execute the request to retrieve the users info
-    var options = {
+    var code = req.query.code,
+    options = {
       url: config.tokenURL,
       method:"POST",
       form:{
-        code:req.query.code,
+        code:code,
         grant_type:'authorization_code',
         client_id:config.clientID,
         client_secret:config.clientSecret,
@@ -67,8 +73,15 @@ exports.userdetails = function(req, res){
     // Execute the curl request to retrieve the token
     request(options,
       function(err, tokenRes){
-        tData = JSON.parse(tokenRes.body);
-        renderUser();
+        if(tokenRes.body !== undefined){
+          //console.log('token res', tokenRes.body);
+          tData = JSON.parse(tokenRes.body);
+          if(tData.code === 403){
+            res.redirect('/invalid');
+          } else {
+            renderUser();
+          }
+        }
       }
     );
 
