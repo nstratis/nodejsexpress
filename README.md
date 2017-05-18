@@ -8,11 +8,11 @@ communicating with a 3rd Party API
 
 The folder structure is as follows:
 
-/auth - The oAuth passport folder containing the simple passport configuration
-/config - Simple config file with oAuth credentials
-/controllers - 2 Controllers for the Index and User Details pages
-/public - The public directory with all public files
-/views - The handlebars view files
+/auth - The oAuth passport folder containing the simple passport configuration<br />
+/config - Simple config file with oAuth credentials<br />
+/controllers - 2 Controllers for the Index and User Details pages<br />
+/public - The public directory with all public files<br />
+/views - The handlebars view files<br />
 
 # How to initialize
 
@@ -42,13 +42,13 @@ The views are generated using HandleBars
 Within the public/js folder resides a custom jQuery plugin which for the purpose
 of demonstration simple fades in the userdetails row groups with a delay.
 
-# RESPONSIVE TEMPLATE
+# Responsive Template
 
 Did not see the point of cluttering with a framework such as bootstrap. The SASS
 and responsive nature has been custom written.
 public/sass
 
-# UNIT TESTING
+# Unit Testing
 
 Two unit testing examples have been included, one for the server using "mocha"
 to test the node and express framework, only a rudimentary example.
