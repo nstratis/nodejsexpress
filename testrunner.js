@@ -7,10 +7,7 @@
  * AV Digital Media Ltd (UK).
  */
 "use strict";
-// ./node_modules/.bin/mocha -R spec private/unittests/simple.test.js
-// ./node_modules/.bin/mocha -R spec private/testrunner.js
-// Require the unit test file
-//var test1 = require('./unittests/simple.test');
+// ./node_modules/.bin/mocha -R spec testrunner.js
 // Require the supertest module
 var request = require('supertest');
 // Decribe a simple test
@@ -20,13 +17,13 @@ describe('Loading the Express Framework', function(){
   // Before any test can be execute the server needs to be intialized
   beforeEach(function(){
     //server = require('../private/server');
-    server = require('../server');
+    server = require('./server');
   });
   afterEach(function(){ server.close(); });
 
   it('responds to /', function testSlash(done){
-    // This expects an interal server error due to the path referencing
-    request(server).get('/').expect(500, done);
+    // This expects the server to return a 200 message
+    request(server).get('/').expect(200, done);
   });
 
   it('404 everything else', function testPath(done){

@@ -50,5 +50,10 @@ public/sass
 Two unit testing examples have been included, one for the server using "mocha"
 to test the node and express framework, only a rudimentary example.
 
+Execute in the console
+./node_modules/.bin/mocha -R spec testrunner.js
+
+
 The other is using QUnit in the public folder to run a simple test on the
-custom jQuery component
+custom jQuery component. This will run in a browser navigate to:
+public/unittests/testrunner.html
