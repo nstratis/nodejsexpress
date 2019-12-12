@@ -1,38 +1,41 @@
-/*global */
-/*jslint nomen:true, plusplus:true */
+/* global */
+/* eslint no-plusplus:0, import/no-extraneous-dependencies:0, global-require:0 */
 /**
  * @copyright (c) Copyright 2017 AV Digital Media Ltd. All Rights Reserved.
  * No unauthorized copying, distribution or modification to this code in whole
  * or in part is permitted without the express permission of
  * AV Digital Media Ltd (UK).
  */
-"use strict";
 // Get the application config file with the params
-var config = require('../config/config')(),
-request = require('request');
+const request = require('request'),
+config = require('../config/config')();
 
-exports.userdetails = function(req, res){
-
+exports.userdetails = (req, res) => {
   // Declare the token data
   var tData;
 
-  function renderUser(){
+  function renderUser() {
     var opts = {
       url: 'https://staging-auth.wallstreetdocs.com/oauth/userinfo',
-      method: "GET",
-      auth: { 'bearer':tData.access_token },
-      headers:{'Cache-Control':'no-cache'}
+      method: 'GET',
+      auth: {
+        bearer: tData.access_token
+      },
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
     };
+
     // Execute the request to retieve the user information
-    request(opts, function(err, usrRes){
-      if(usrRes !== undefined && usrRes.body !== undefined){
+    request(opts, (err, usrRes) => {
+      if (usrRes !== undefined && usrRes.body !== undefined) {
         // Determine if the request was authorized
-        if(usrRes.body === 'Unauthorized'){
+        if (usrRes.body === 'Unauthorized') {
           // Redirect to the login page
           res.redirect('/');
         } else {
           // Parse the response body as JSON
-          var uData = JSON.parse(usrRes.body);
+          const uData = JSON.parse(usrRes.body);
           // Set the page Info object
           res.pageInfo = {};
           // Set the default page title and description
@@ -57,37 +60,36 @@ exports.userdetails = function(req, res){
 
   // Retrieve the user tokens from the server
   // Determine if the user has already logged in
-  if(req.query.code !== undefined){
+  if (req.query.code !== undefined) {
     // Execute the request to retrieve the users info
-    var code = req.query.code,
+    const code = req.query.code,
     options = {
       url: config.tokenURL,
-      method:"POST",
-      form:{
-        code:code,
-        grant_type:'authorization_code',
-        client_id:config.clientID,
-        client_secret:config.clientSecret,
-        redirect_uri:config.callbackURL
+      method: 'POST',
+      form: {
+        code: code,
+        grant_type: 'authorization_code',
+        client_id: config.clientID,
+        client_secret: config.clientSecret,
+        redirect_uri: config.callbackURL
       },
-      headers:{'Cache-Control':'no-cache'}
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
     };
+
     // Execute the curl request to retrieve the token
-    request(options,
-      function(err, tokenRes){
-        if(tokenRes.body !== undefined){
-          //console.log('token res', tokenRes.body);
-          tData = JSON.parse(tokenRes.body);
-          if(tData.code === 403){
-            res.redirect('/invalid');
-          } else {
-            renderUser();
-          }
+    request(options, (err, tokenRes) => {
+      if (tokenRes.body !== undefined) {
+        // console.log('token res', tokenRes.body);
+        tData = JSON.parse(tokenRes.body);
+        if (tData.code === 403) {
+          res.redirect('/invalid');
+        } else {
+          renderUser();
         }
       }
-    );
-
-
+    });
   } else {
     res.redirect('/');
   }
